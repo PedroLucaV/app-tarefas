@@ -43,14 +43,14 @@
 
 								<?php foreach ($tarefas as $tarefa){
                                     $titulo = $tarefa['tarefa'];
-                                    $id_status = $tarefa['id_status']
+                                    $status = $tarefa['status'];
                                 ?>
                                     <div class="row mb-3 d-flex align-items-center tarefa">
-                                        <div class="col-sm-9"><?= $titulo?> (<?= ?>)</div>
+                                        <div class="col-sm-9"><?= $titulo?> (<?= $status?>)</div>
                                         <div class="col-sm-3 mt-2 d-flex justify-content-between">
-                                            <i class="fas fa-trash-alt fa-lg text-danger"></i>
-                                            <i class="fas fa-edit fa-lg text-info"></i>
-                                            <i class="fas fa-check-square fa-lg text-success"></i>
+                                            <a href="tarefa_controller.php?acao=excluir&id=<?= $id?>" class="fas fa-trash-alt fa-lg text-danger"></a>
+                                            <a class="fas fa-edit fa-lg text-info"></a>
+                                            <a class="fas fa-check-square fa-lg text-success"></a>
                                         </div>
                                     </div>
                                 <?php }?>
