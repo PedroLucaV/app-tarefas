@@ -28,14 +28,8 @@ class TarefaService
     }
 
     public function atualizar(){
-        $query = 'UPDATE tb_tarefas SET tarefa = :tarefa';
-        $stmt = $this->conexao->prepare($query);
     }
 
     public function excluir($id){
-        $query = 'DELETE FROM tb_tarefas WHERE id = :id';
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindValue(':id', $this->tarefa->__get('id'));
-        $stmt->execute();
     }
 }

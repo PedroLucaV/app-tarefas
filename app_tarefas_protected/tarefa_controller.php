@@ -18,10 +18,4 @@ if(isset($_GET["acao"]) && $_GET["acao"]=="inserir"){
 }else if($acao == 'recuperar'){
     $tarefaService = new TarefaService($conexao);
     $tarefas = $tarefaService->recuperar();
-}else if(isset($_GET["acao"]) && $_GET["acao"]=="excluir"){
-    if(isset($_GET['id']) && is_numeric($_GET['id'])){
-        $tarefaService = new TarefaService($conexao);
-        $tarefas = $tarefaService->excluir($_GET['id']);
-        header("Location:todas_tarefas.php");
-    }
 }
