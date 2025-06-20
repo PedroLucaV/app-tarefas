@@ -7,7 +7,7 @@ require_once 'TarefaService.php';
 $acao = isset($_GET["acao"]) ? $_GET["acao"] : $acao = 'recuperar';
 $conexao = new Conexao();
 
-if(isset($_GET["acao"]) && $_GET["acao"]=="inserir"){
+if($acao=="inserir"){
     $tarefa = new Tarefa();
     $tarefa->__set('tarefa', $_POST['tarefa']);
 
@@ -18,7 +18,7 @@ if(isset($_GET["acao"]) && $_GET["acao"]=="inserir"){
 }else if($acao == 'recuperar'){
     $tarefaService = new TarefaService($conexao);
     $tarefas = $tarefaService->recuperar();
-}else if(isset($_GET["acao"]) && $_GET["acao"]=="atualizar"){
+}else if($acao == "atualizar"){
     $tarefa = new Tarefa();
     $tarefa->__set('id', $_POST['id']);
     $tarefa->__set('tarefa', $_POST['tarefa']);
@@ -26,6 +26,16 @@ if(isset($_GET["acao"]) && $_GET["acao"]=="inserir"){
     $return = $tarefaservice->atualizar();
     if($return){
         header("Location:todas_tarefas.php?atualizada=1");
+    }else{
+        header("Location:todas_tarefas.php?atualizada=0");
+    }
+}else if($acao == "remover"){
+    $tarefa = new Tarefa();
+    $tarefa->__set('id', $_GET['id']);
+    $tarefaservice = new TarefaService($conexao, $tarefa);
+    $return = $tarefaservice->excluir();
+    if($return){
+        header("Location:todas_tarefas.php?atualizada=2");
     }else{
         header("Location:todas_tarefas.php?atualizada=0");
     }

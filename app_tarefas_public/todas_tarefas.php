@@ -44,6 +44,10 @@
 
                 tarefa.insertBefore(form, tarefa[0])
             }
+
+            const remover = (id) => {
+                location.href = 'todas_tarefas.php?acao=remover&id='+id;
+            }
         </script>
 	</head>
 
@@ -56,9 +60,19 @@
 				</a>
 			</div>
 		</nav>
+        <?php if(isset($_GET['atualizada']) && $_GET['atualizada'] == 0){ ?>
+            <div class="bg-danger pt-2 text-white d-flex justify-content-center">
+                <h5>Erro ao Atualizar a Tarefa</h5>
+            </div>
+        <?php }?>
         <?php if(isset($_GET['atualizada']) && $_GET['atualizada'] == 1){ ?>
             <div class="bg-success pt-2 text-white d-flex justify-content-center">
                 <h5>Tarefa Atualizada com Sucesso!</h5>
+            </div>
+        <?php }?>
+        <?php if(isset($_GET['atualizada']) && $_GET['atualizada'] == 2){ ?>
+            <div class="bg-primary pt-2 text-white d-flex justify-content-center">
+                <h5>Tarefa Removida com Sucesso!</h5>
             </div>
         <?php }?>
 
@@ -87,7 +101,7 @@
                                     <div class="row mb-3 d-flex align-items-center tarefa">
                                         <div class="col-sm-9" id="tarefa_<?=$id?>"><?= $titulo?> (<?= $status?>)</div>
                                         <div class="col-sm-3 mt-2 d-flex justify-content-between">
-                                            <i class="fas fa-trash-alt fa-lg text-danger"></i>
+                                            <i onclick="remover(<?=$id?>)" class="fas fa-trash-alt fa-lg text-danger"></i>
                                             <i onclick="editar(<?=$id?>, '<?= $titulo?>')" class="fas fa-edit fa-lg text-info"></i>
                                             <i class="fas fa-check-square fa-lg text-success"></i>
                                         </div>
