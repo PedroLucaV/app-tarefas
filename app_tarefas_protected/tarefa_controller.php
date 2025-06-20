@@ -18,4 +18,15 @@ if(isset($_GET["acao"]) && $_GET["acao"]=="inserir"){
 }else if($acao == 'recuperar'){
     $tarefaService = new TarefaService($conexao);
     $tarefas = $tarefaService->recuperar();
+}else if(isset($_GET["acao"]) && $_GET["acao"]=="atualizar"){
+    $tarefa = new Tarefa();
+    $tarefa->__set('id', $_POST['id']);
+    $tarefa->__set('tarefa', $_POST['tarefa']);
+    $tarefaservice = new TarefaService($conexao, $tarefa);
+    $return = $tarefaservice->atualizar();
+    if($return){
+        header("Location:todas_tarefas.php?atualizada=1");
+    }else{
+        header("Location:todas_tarefas.php?atualizada=0");
+    }
 }

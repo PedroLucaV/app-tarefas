@@ -10,9 +10,9 @@ class TarefaService
         $this->tarefa = $tarefa;
     }
     public function inserir(){
-        $query = 'INSERT INTO tb_tarefas (tarefa) VALUES (:tarefa)';
+        $query = 'INSERT INTO tb_tarefas (tarefa) VALUES (?)';
         $stmt = $this->conexao->prepare($query);
-        $stmt->bindValue(':tarefa', $this->tarefa->__get('tarefa'));
+        $stmt->bindValue(1, $this->tarefa->__get('tarefa'));
         $stmt->execute();
     }
 
@@ -28,6 +28,11 @@ class TarefaService
     }
 
     public function atualizar(){
+        $query = 'UPDATE tb_tarefas SET tarefa = ? WHERE id = ?';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(1, $this->tarefa->__get('tarefa'));
+        $stmt->bindValue(2, $this->tarefa->__get('id'));
+        return $stmt->execute();
     }
 
     public function excluir($id){
