@@ -39,4 +39,16 @@ if($acao=="inserir"){
     }else{
         header("Location:todas_tarefas.php?atualizada=0");
     }
+}else if($acao == 'marcarRealizada'){
+    $tarefa = new Tarefa();
+    $tarefa->__set('id', $_GET['id']);
+    $tarefa->__set('id_status', 2);
+
+    $tarefaService = new TarefaService($conexao, $tarefa);
+    $return = $tarefaService->marcarRealizada();
+    if($return){
+        header("Location:todas_tarefas.php?atualizada=1");
+    }else{
+        header("Location:todas_tarefas.php?atualizada=0");
+    }
 }

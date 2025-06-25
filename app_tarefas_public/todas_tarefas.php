@@ -48,6 +48,10 @@
             const remover = (id) => {
                 location.href = 'todas_tarefas.php?acao=remover&id='+id;
             }
+
+            const marcarRealizada = (id) =>{
+                location.href = 'todas_tarefas.php?acao=marcarRealizada&id='+id;
+            }
         </script>
 	</head>
 
@@ -102,8 +106,10 @@
                                         <div class="col-sm-9" id="tarefa_<?=$id?>"><?= $titulo?> (<?= $status?>)</div>
                                         <div class="col-sm-3 mt-2 d-flex justify-content-between">
                                             <i onclick="remover(<?=$id?>)" class="fas fa-trash-alt fa-lg text-danger"></i>
-                                            <i onclick="editar(<?=$id?>, '<?= $titulo?>')" class="fas fa-edit fa-lg text-info"></i>
-                                            <i class="fas fa-check-square fa-lg text-success"></i>
+                                            <?php if($status == 'pendente'){?>
+                                                <i onclick="editar(<?=$id?>, '<?= $titulo?>')" class="fas fa-edit fa-lg text-info"></i>
+                                                <i class="fas fa-check-square fa-lg text-success" onclick="marcarRealizada(<?=$id?>)"></i>
+                                            <?php }?>
                                         </div>
                                     </div>
                                 <?php }?>
