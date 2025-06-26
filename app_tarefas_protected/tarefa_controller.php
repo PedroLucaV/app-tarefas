@@ -4,7 +4,7 @@ require_once 'Conexao.php';
 require_once 'Tarefa.php';
 require_once 'TarefaService.php';
 
-$acao = isset($_GET["acao"]) ? $_GET["acao"] : $acao = 'recuperar';
+$acao = isset($_GET["acao"]) ? $_GET["acao"] : $acao;
 $conexao = new Conexao();
 
 if($acao=="inserir"){
@@ -26,6 +26,8 @@ if($acao=="inserir"){
     $return = $tarefaservice->atualizar();
     if($return){
         header("Location:todas_tarefas.php?atualizada=1");
+    }if($return && isset($_GET['rota'])){
+        header("Location:index.php?atualizada=1");
     }else{
         header("Location:todas_tarefas.php?atualizada=0");
     }
@@ -36,6 +38,8 @@ if($acao=="inserir"){
     $return = $tarefaservice->excluir();
     if($return){
         header("Location:todas_tarefas.php?atualizada=2");
+    }else if($return && isset($_GET['rota'])){
+        header("Location:index.php?atualizada=2");
     }else{
         header("Location:todas_tarefas.php?atualizada=0");
     }
@@ -51,4 +55,7 @@ if($acao=="inserir"){
     }else{
         header("Location:todas_tarefas.php?atualizada=0");
     }
+}else if($acao == 'recuperarPendentes'){
+    $tarefaService = new TarefaService($conexao);
+    $tarefas = $tarefaService->recuperarPendentes();
 }
